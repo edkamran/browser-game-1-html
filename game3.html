@@ -11,22 +11,27 @@
  canvas {
     display: block;
     border: 4px solid #aaa;
+   //add an image 
     background-image: url("office.png");
     background-color: #eee;
     margin: 26px 0 0 26px;
   }
+  
  </style>
  </head>
  <body onload="startGame()">
   <script>
+   
+   //Have everything in 1 files or just be more specific when you add images in the link for the file Path
 
    var myGamePiece;
    var myObstacles = [];
    var myScore;
 
      function startGame() {
-        myGamePiece = new component(40, 46, "player.png", 10, 120, "image");
-        myScore = new component("30px", "sans-serif", "black", 280, 40, "text");
+        myGamePiece = new Component(40, 46, "player.png", 10, 120, "image");
+      //add an image for myGamePiece where it says "player.png" 
+        myScore = new Component("30px", "sans-serif", "black", 280, 40, "text");
         myGameArea.start();
     }
 
@@ -53,7 +58,8 @@
     }
 
 
-     function component(width, height, color, x, y, type) {
+     //Using a constructor use capital name to idenfity that it is a constructor
+     function Component(width, height, color, x, y, type) {
      this.type = type;
      if (type == "image") {
         this.image = new Image();
@@ -130,14 +136,16 @@
         minGap = 100;
         maxGap = 136;
         gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-        myObstacles.push(new component(10, height, "red", x, 0));
-        myObstacles.push(new component(12, x - height - gap, "#1186d4", x, height + gap));
+        myObstacles.push(new Component(10, height, "red", x, 0));
+        myObstacles.push(new Component(12, x - height - gap, "#1186d4", x, height + gap));
     }
 
      for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
         myObstacles[i].update();
     }
+      
+      //the code below is for the movement of the character
 
      myScore.text="SCORE: " + myGameArea.frameNo;
         if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
