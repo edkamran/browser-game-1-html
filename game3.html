@@ -24,18 +24,18 @@
    
    //Have everything in 1 files or just be more specific when you add images in the link for the file Path
 
-   var myGamePiece;
+   var gamePiece;
    var myObstacles = [];
-   var myScore;
+   var score;
 
      function startGame() {
-        myGamePiece = new Component(40, 46, "player.png", 10, 120, "image");
+        gamePiece = new Component(40, 46, "player.png", 10, 120, "image");
       //add an image for myGamePiece where it says "player.png" 
-        myScore = new Component("30px", "sans-serif", "black", 280, 40, "text");
-        myGameArea.start();
+        score = new Component("30px", "sans-serif", "black", 280, 40, "text");
+        gameArea.start();
     }
 
-     var myGameArea = {
+     var gameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
            this.canvas.width = 730;
@@ -72,7 +72,7 @@
      this.x = x;
      this.y = y;
      this.update = function() {
-        ctx = myGameArea.context;
+        ctx = gameArea.context;
         if (type == "image") {
             ctx.drawImage(this.image,
             this.x,
@@ -95,7 +95,7 @@
         this.hitBottom();
      }
      this.hitBottom = function() {
-        var rockbottom = myGameArea.canvas.height - this.height;
+        var rockbottom = gameArea.canvas.height - this.height;
         if (this.y > rockbottom) {
             this.y = rockbottom;
         }
@@ -121,15 +121,15 @@
      function updateGameArea() {
         var x, height, gap, minHeight, maxHeight, minGap, maxGap;
         for (i = 0; i < myObstacles.length; i += 1) {
-        if (myGamePiece.crashWith(myObstacles[i])) {
+        if (gamePiece.crashWith(myObstacles[i])) {
              return;
         }
       }
 
-     myGameArea.clear();
-     myGameArea.frameNo += 1;
-     if (myGameArea.frameNo == 1 || everyinterval(150)) {
-        x = myGameArea.canvas.width;
+     gameArea.clear();
+     gameArea.frameNo += 1;
+     if (gameArea.frameNo == 1 || everyinterval(150)) {
+        x = gameArea.canvas.width;
         minHeight = 20;
         maxHeight = 150;
         height = Math.floor(Math.random()*(maxHeight-minHeight)+minHeight);
@@ -147,18 +147,18 @@
       
       //the code below is for the movement of the character
 
-     myScore.text="SCORE: " + myGameArea.frameNo;
-        if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
-        if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
-        if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; }
-        if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
+     score.text="SCORE: " + gameArea.frameNo;
+        if (gameArea.keys && gameArea.keys[37]) {gamePiece.speedX = -1; }
+        if (gameArea.keys && gameArea.keys[39]) {gamePiece.speedX = 1; }
+        if (gameArea.keys && gameArea.keys[38]) {gamePiece.speedY = -1; }
+        if (gameArea.keys && gameArea.keys[40]) {gamePiece.speedY = 1; }
            myScore.update();
-           myGamePiece.newPos();
-           myGamePiece.update();
+           gamePiece.newPos();
+           gamePiece.update();
        }
 
      function everyinterval(n) {
-           if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+           if ((gameArea.frameNo / n) % 1 == 0) {return true;}
            return false;
        }
  </script>
